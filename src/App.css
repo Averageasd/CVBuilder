@@ -1,10 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -16,6 +9,22 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+input {
+  font-size: inherit;
+  padding: 0.75em 1.5em;
+  display: block;
+  margin-bottom: 1em;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+}
+
+input:focus{
+  outline: none;
+  background-color: #fff;
+  border: 1px solid #3085C3;
 }
 
 @keyframes logo-spin {
@@ -31,6 +40,24 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+
+.container{
+  width: 85%;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.save-info-btn{
+  font-size: 0.9rem;
+  background-color: #BB2525;
+  border: none;
+  color:#FFF5E0;
+  text-align: center;
+  border-radius: 3px;
+  padding: 0.5em 0.5em;
+  min-width: 10rem;
 }
 
 .card {
