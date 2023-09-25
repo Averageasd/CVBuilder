@@ -24,7 +24,7 @@ input {
 }
 
 .input-container {
-    margin-bottom: 1em;
+    margin-bottom: 0.75em;
 }
 
 .input-example{
@@ -59,6 +59,7 @@ input:focus {
     width: 85%;
     max-width: 500px;
     margin: 0 auto;
+    padding-bottom: 3em;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -73,10 +74,31 @@ input:focus {
     min-width: 10rem;
 }
 
-.card {
-    padding: 2em;
+.section-title{
+    margin-bottom: 0;
+    padding: 0;
 }
 
-.read-the-docs {
-    color: #888;
+.form-section{
+    padding-top:3em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
+
+.section-title{
+    margin-top: 0;
+}
+
+li{
+    list-style: none;
+    /*margin-bottom: 2em;*/
+}
+
+ul{
+    padding: 0;
+}
+
+.section-divider{
+    border: 1px solid black;
+}
+
