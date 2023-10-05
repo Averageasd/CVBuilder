@@ -8,6 +8,7 @@ import Education from "./data/Education.js";
 import {v4 as uuidv4} from 'uuid';
 import dateFormat from "dateformat";
 import {DeleteButton} from "./components/DeleteButton.jsx";
+import {SetEditableSection} from "./components/SetEditableSection.jsx";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -301,6 +302,8 @@ function App() {
                     </ul>
                     <AddButton clickHandler={addEducation}></AddButton>
                 </InfoSection>
+
+                <SetEditableSection></SetEditableSection>
             </div>
         </section>
     )
