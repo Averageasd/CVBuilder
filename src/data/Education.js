@@ -1,4 +1,4 @@
-const Experience = (id, company, position, dateFrom, dateTo) =>{
+const Education = (id, company, position, dateFrom, dateTo) =>{
     let _id = id;
     let _company = company;
     let _position = position;
@@ -8,5 +8,5 @@ const Experience = (id, company, position, dateFrom, dateTo) =>{
     return {_id, _company, _position, _dateFrom, _dateTo}
 }
 
-export default Experience;
+export default Education;
 

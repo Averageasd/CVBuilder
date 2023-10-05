@@ -4,8 +4,9 @@ import {useState} from "react";
 import {InputContainer} from "./components/InputContainer.jsx";
 import {AddButton} from "./components/AddButton.jsx";
 import Experience from "./data/Experience.js";
+import Education from "./data/Education.js";
 import {v4 as uuidv4} from 'uuid';
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -16,16 +17,54 @@ function App() {
     const [inputEditable, setInputEditable] = useState(true);
 
     const [experienceList, setExperienceList] = useState([]);
+    const [educationList, setEducationList] = useState([]);
 
     function addExperience() {
-        const experience = Experience(uuidv4(), 'Company', 'position', new Date());
+        const experience = Experience(uuidv4(), '', '', new Date());
         const newList = [...experienceList];
         newList.push(experience);
         setExperienceList(newList);
     }
 
-    function changeTypeToDate(e) {
-        e.target.type = 'date';
+    function getExperienceWithId(id){
+        return experienceList.find((exp) => exp._id === id);
+    }
+
+    function createExpCopy(id){
+        const expWithId = getExperienceWithId(id);
+        return {...expWithId};
+    }
+
+    function setExpListWithUpdatedItem(updatedItem, id){
+        setExperienceList(experienceList.map(exp => {
+            if (exp._id !== id) {
+                return exp;
+            }
+            return updatedItem;
+        }));
+    }
+
+    function updateExperienceDateFrom(id, dateFrom) {
+        const updatedItem = createExpCopy(id);
+        updatedItem._dateFrom = dateFrom;
+        setExpListWithUpdatedItem(updatedItem, id);
+    }
+    function updateExperienceDateTo(id, dateTo){
+        const updatedItem = createExpCopy(id);
+        updatedItem._dateTo = dateTo;
+        setExpListWithUpdatedItem(updatedItem, id);
+    }
+
+    function updateExperienceCompanyName(id, company){
+        const updatedItem = createExpCopy(id);
+        updatedItem._company = company;
+        setExpListWithUpdatedItem(updatedItem, id);
+    }
+
+    function updateExperiencePositionName(id, position){
+        const updatedItem = createExpCopy(id);
+        updatedItem._position = position;
+        setExpListWithUpdatedItem(updatedItem, id);
     }
 
     return (
@@ -64,7 +103,8 @@ function App() {
                         </input>
                     </InputContainer>
                 </InfoSection>
-                <InfoSection lastSection={true} infoTitle="Experience">
+
+                <InfoSection infoTitle="Experience">
                     <ul>
                         {experienceList.map(experience => {
                             return (
@@ -73,6 +113,10 @@ function App() {
                                         <input
                                             type="text"
                                             placeholder="company"
+                                            value={experience._company}
+                                            onChange={(e)=>{
+                                                updateExperienceCompanyName(experience._id, e.target.value)
+                                            }}
                                         >
                                         </input>
                                     </InputContainer>
@@ -81,28 +125,52 @@ function App() {
                                         <input
                                             type="text"
                                             placeholder="position"
+                                            value={experience._position}
+                                            onChange={(e)=>{
+                                                updateExperiencePositionName(experience._id, e.target.value)
+                                            }}
                                         >
                                         </input>
                                     </InputContainer>
-                                    <InputContainer inputExample="e.g: Software engineer">
+                                    <InputContainer inputExample="e.g: 01/01/2023">
                                         <label>
                                             From Date:
                                             <input
                                                 type="date"
-                                                defaultValue={dateFormat(experience._date,'yyyy-mm-dd')}
-                                                placeholder="position"
+                                                placeholder="date from"
+                                                onChange={(e) => {
+                                                    updateExperienceDateFrom(experience._id, new Date(`${e.target.value} EDT`))
+                                                }}
+                                                value={dateFormat(experience._dateFrom, 'yyyy-mm-dd')}
                                             >
                                             </input>
                                         </label>
 
                                     </InputContainer>
+                                    <InputContainer inputExample="e.g: 02/01/2023">
+                                        <label>
+                                            To Date:
+                                            <input
+                                                type="date"
+                                                placeholder="date to"
+                                                onChange={(e) => {
+                                                    updateExperienceDateTo(experience._id, new Date(`${e.target.value} EDT`))
+                                                }}
+                                                value={dateFormat(experience._dateTo, 'yyyy-mm-dd')}
+                                            >
+                                            </input>
+                                        </label>
+                                    </InputContainer>
                                     <hr></hr>
                                 </li>
-
                             )
                         })}
                     </ul>
                     <AddButton clickHandler={addExperience}></AddButton>
+                </InfoSection>
+
+                <InfoSection infoTitle="Education">
+                    <AddButton></AddButton>
                 </InfoSection>
             </div>
         </section>
