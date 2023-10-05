@@ -7,6 +7,7 @@ import Experience from "./data/Experience.js";
 import Education from "./data/Education.js";
 import {v4 as uuidv4} from 'uuid';
 import dateFormat from "dateformat";
+import {DeleteButton} from "./components/DeleteButton.jsx";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -20,22 +21,41 @@ function App() {
     const [educationList, setEducationList] = useState([]);
 
     function addExperience() {
-        const experience = Experience(uuidv4(), '', '', new Date());
+        const experience = Experience(uuidv4(), '', '', new Date(), new Date());
         const newList = [...experienceList];
         newList.push(experience);
         setExperienceList(newList);
     }
 
-    function getExperienceWithId(id){
+    function deleteExperience(id) {
+        let copiedExpList = [...experienceList];
+        copiedExpList = copiedExpList.filter((exp) => exp._id !== id);
+        setExperienceList(copiedExpList);
+    }
+
+    function deleteEducation(id) {
+        let copiedEducationList = [...educationList];
+        copiedEducationList = copiedEducationList.filter((edu) => edu._id !== id);
+        setEducationList(copiedEducationList);
+    }
+
+    function addEducation() {
+        const education = Education(uuidv4(), '', '', new Date(), new Date());
+        const newEducationList = [...educationList];
+        newEducationList.push(education);
+        setEducationList(newEducationList);
+    }
+
+    function getExperienceWithId(id) {
         return experienceList.find((exp) => exp._id === id);
     }
 
-    function createExpCopy(id){
+    function createExpCopy(id) {
         const expWithId = getExperienceWithId(id);
         return {...expWithId};
     }
 
-    function setExpListWithUpdatedItem(updatedItem, id){
+    function setExpListWithUpdatedItem(updatedItem, id) {
         setExperienceList(experienceList.map(exp => {
             if (exp._id !== id) {
                 return exp;
@@ -49,22 +69,65 @@ function App() {
         updatedItem._dateFrom = dateFrom;
         setExpListWithUpdatedItem(updatedItem, id);
     }
-    function updateExperienceDateTo(id, dateTo){
+
+    function updateExperienceDateTo(id, dateTo) {
         const updatedItem = createExpCopy(id);
         updatedItem._dateTo = dateTo;
         setExpListWithUpdatedItem(updatedItem, id);
     }
 
-    function updateExperienceCompanyName(id, company){
+    function updateExperienceCompanyName(id, company) {
         const updatedItem = createExpCopy(id);
         updatedItem._company = company;
         setExpListWithUpdatedItem(updatedItem, id);
     }
 
-    function updateExperiencePositionName(id, position){
+    function updateExperiencePositionName(id, position) {
         const updatedItem = createExpCopy(id);
         updatedItem._position = position;
         setExpListWithUpdatedItem(updatedItem, id);
+    }
+
+    function findEducationWithId(id) {
+        return educationList.find(edu => edu._id === id);
+    }
+
+    function createEduCopy(id) {
+        return {...findEducationWithId(id)};
+    }
+
+    function updateEducationList(id, updatedItem) {
+        setEducationList(educationList.map(edu => {
+            if (edu._id !== id) {
+                return edu;
+            } else {
+                return updatedItem;
+            }
+        }));
+    }
+
+    function updateEducationSchool(id, school) {
+        const copiedEdu = createEduCopy(id);
+        copiedEdu._school = school;
+        updateEducationList(id, copiedEdu);
+    }
+
+    function updateEducationGpa(id, gpa) {
+        const copiedEdu = createEduCopy(id);
+        copiedEdu._gpa = gpa;
+        updateEducationList(id, copiedEdu);
+    }
+
+    function updateEducationDateFrom(id, dateFrom) {
+        const copiedEdu = createEduCopy(id);
+        copiedEdu._dateFrom = dateFrom;
+        updateEducationList(id, copiedEdu);
+    }
+
+    function updateEducationDateTo(id, dateTo) {
+        const copiedEdu = createEduCopy(id);
+        copiedEdu._dateTo = dateTo;
+        updateEducationList(id, copiedEdu);
     }
 
     return (
@@ -114,7 +177,7 @@ function App() {
                                             type="text"
                                             placeholder="company"
                                             value={experience._company}
-                                            onChange={(e)=>{
+                                            onChange={(e) => {
                                                 updateExperienceCompanyName(experience._id, e.target.value)
                                             }}
                                         >
@@ -126,7 +189,7 @@ function App() {
                                             type="text"
                                             placeholder="position"
                                             value={experience._position}
-                                            onChange={(e)=>{
+                                            onChange={(e) => {
                                                 updateExperiencePositionName(experience._id, e.target.value)
                                             }}
                                         >
@@ -161,6 +224,9 @@ function App() {
                                             </input>
                                         </label>
                                     </InputContainer>
+                                    <DeleteButton clickHandler={() => {
+                                        deleteExperience(experience._id)
+                                    }}></DeleteButton>
                                     <hr></hr>
                                 </li>
                             )
@@ -170,7 +236,70 @@ function App() {
                 </InfoSection>
 
                 <InfoSection infoTitle="Education">
-                    <AddButton></AddButton>
+                    <ul>
+                        {educationList.map(education => {
+                            return (
+                                <li key={education._id}>
+                                    <InputContainer inputExample="e.g: ABC High school">
+                                        <input
+                                            type="text"
+                                            placeholder="school"
+                                            onChange={(e) => {
+                                                updateEducationSchool(education._id, e.target.value)
+                                            }}
+                                            value={education._school}
+                                        >
+                                        </input>
+                                    </InputContainer>
+                                    <InputContainer inputExample="e.g: 3.0">
+                                        <input
+                                            type="number"
+                                            placeholder="gpa"
+                                            min="0"
+                                            step="any"
+                                            max="4"
+                                            value={education._gpa}
+                                            onChange={(e) => {
+                                                updateEducationGpa(education._id, e.target.value)
+                                            }}
+                                        >
+                                        </input>
+                                    </InputContainer>
+                                    <InputContainer inputExample="e.g: 01/01/2023">
+                                        <label>
+                                            From Date:
+                                            <input
+                                                type="date"
+                                                placeholder="date from"
+                                                onChange={(e) =>
+                                                    updateEducationDateFrom(education._id, new Date(`${e.target.value} EDT`))}
+                                                value={dateFormat(education._dateFrom, 'yyyy-mm-dd')}
+                                            >
+                                            </input>
+                                        </label>
+                                    </InputContainer>
+                                    <InputContainer inputExample="e.g: 02/01/2023">
+                                        <label>
+                                            To Date:
+                                            <input
+                                                type="date"
+                                                placeholder="date to"
+                                                onChange={(e) =>
+                                                    updateEducationDateTo(education._id, new Date(`${e.target.value} EDT`))}
+                                                value={dateFormat(education._dateTo, 'yyyy-mm-dd')}
+                                            >
+                                            </input>
+                                        </label>
+                                    </InputContainer>
+                                    <DeleteButton clickHandler={() => {
+                                        deleteEducation(education._id)
+                                    }}></DeleteButton>
+                                    <hr></hr>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                    <AddButton clickHandler={addEducation}></AddButton>
                 </InfoSection>
             </div>
         </section>
