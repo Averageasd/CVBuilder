@@ -1,20 +1,21 @@
 import {EditFormButton} from "./EditFormButton.jsx";
 
-const buttonStyle = {
+const buttonDefaultStyle = {
     display: "block",
     padding: "0.5em 4em",
     width: "100%",
     marginBottom: "1em",
-    border:"none",
-    backgroundColor:"red"
+    border: "none",
+    borderRadius:"5px",
+    color:"#FFF"
 }
-EditFormButton.defaultProps = buttonStyle;
-export function SetEditableSection(){
+
+export function SetEditableSection() {
 
     return (
         <section className="set-edit-section">
-            <EditFormButton buttonStyle={{backgroundColor:"red"}}>Edit</EditFormButton>
-            <EditFormButton buttonStyle={{backgroundColor:"blue"}}>Save</EditFormButton>
+            <EditFormButton backgroundColor="red" text="Save" buttonStyle={buttonDefaultStyle}></EditFormButton>
+            <EditFormButton backgroundColor="blue" text="Edit" buttonStyle={buttonDefaultStyle}></EditFormButton>
         </section>
     )
 }
