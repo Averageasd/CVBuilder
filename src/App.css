@@ -27,7 +27,7 @@ input {
     margin-bottom: 0.75em;
 }
 
-.input-example{
+.input-example {
     font-size: 0.75rem;
     font-weight: bold;
     margin: 0;
@@ -74,31 +74,73 @@ input:focus {
     min-width: 10rem;
 }
 
-.section-title{
+.section-title {
     margin-bottom: 0;
     padding: 0;
 }
 
-.form-section, .set-edit-section{
-    padding-top:3em;
+.form-section, .set-edit-section {
+    padding-top: 3em;
     padding-left: 1em;
     padding-right: 1em;
 }
 
-.section-title{
-    margin-top: 0;
-}
 
-li{
+li {
     list-style: none;
     margin-bottom: 2em;
 }
 
-ul{
+ul {
     padding: 0;
 }
 
-.section-divider{
+.section-divider {
     border: 1px solid black;
 }
+
+.switch-section {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 1.5em;
+}
+
+.preview {
+    width: 800px;
+    margin: 0 auto;
+    padding: 1em 3em;
+}
+
+.resume-name {
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.general-info-container {
+    display: flex;
+    justify-content: center;
+}
+
+.general-info-container p {
+    padding: 0;
+    margin: 0;
+}
+
+.experience-display p, .education-display p {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.company-title, .job-year, .gpa, .school-year {
+    margin-top: 0;
+}
+
+.job-title, .school-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+
 
