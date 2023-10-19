@@ -10,8 +10,9 @@ import dateFormat from "dateformat";
 import {DeleteButton} from "./components/DeleteButton.jsx";
 import {GeneralInfo} from "./components/GeneralInfo.jsx";
 import {SwitchSection} from "./components/SwitchSection.jsx";
-import {EditFormButton} from "./components/EditFormButton.jsx";
 import {ExperienceSection} from "./components/ExperienceSection.jsx";
+import {PreviewHeader} from "./components/PreviewHeader.jsx";
+import {PreviewBody} from "./components/PreviewBody.jsx";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -163,47 +164,29 @@ function App() {
         const phoneNumDisplay = phoneNumInput === '' ? '123-456-789' : phoneNumInput;
         const emailDisplay = emailInput === '' ? 'abc@gmail.com' : emailInput;
         const addressDisplay = addressInput === '' ? '123 street, my state, 12345' : addressInput;
+        const personalInfo = {
+            phoneNumDisplay : phoneNumDisplay,
+            emailDisplay : emailDisplay,
+            addressDisplay : addressDisplay
+        }
+
+        const headerInfo = {
+            name : nameDisplay,
+            personalInfo : personalInfo
+        }
         return (
             <>
-                <SwitchSection>
-                    <EditFormButton text="Edit" clickHandler={setFromEditable}></EditFormButton>
-                    <EditFormButton text="Preview" clickHandler={showPreview}></EditFormButton>
+                <SwitchSection
+                    editHandler={setFromEditable}
+                    previewHandler={showPreview}>
                 </SwitchSection>
                 <section className="preview">
-                    <h2 className="resume-name">{nameDisplay}</h2>
-                    <section className="general-info-container">
-                        <p>{phoneNumDisplay} | {emailDisplay} | {addressDisplay}</p>
-                    </section>
-                    <section className="experience-info-container">
-                        <h2 className="section-title">Experience</h2>
-                        <hr className="section-divider"></hr>
-                        <ul className="experience-display">
-                            {experienceList.map(exp => {
-                                return (
-                                    <li key={exp._id}>
-                                        <p className="job-title">{exp._position === '' ? 'Position' : exp._position}</p>
-                                        <p className="company-title">{exp._company === '' ? 'Company' : exp._company}</p>
-                                        <p className="job-year">{dateFormat(exp._dateFrom, 'mm/dd/yyyy')} - {dateFormat(exp._dateTo, 'mm/dd/yyyy')}</p>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </section>
-                    <section className="edu-info-container">
-                        <h2 className="section-title">Education</h2>
-                        <hr className="section-divider"></hr>
-                        <ul className="education-display">
-                            {educationList.map(edu => {
-                                return (
-                                    <li key={edu._id}>
-                                        <p className="school-title">{edu._school === '' ? 'School' : edu._school}</p>
-                                        <p className="gpa">{edu._gpa === '' ? 'GPA: N/A' : 'GPA: ' + edu._gpa}</p>
-                                        <p className="school-year">{dateFormat(edu._dateFrom, 'mm/dd/yyyy')} - {dateFormat(edu._dateTo, 'mm/dd/yyyy')}</p>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    </section>
+                    <PreviewHeader headerInfo={headerInfo}>
+                    </PreviewHeader>
+                    <PreviewBody
+                        experienceList={experienceList}
+                        educationList={experienceList}>
+                    </PreviewBody>
                 </section>
             </>
         )
@@ -212,9 +195,9 @@ function App() {
 
     return (
         <>
-            <SwitchSection>
-                <EditFormButton text="Edit" clickHandler={setFromEditable}></EditFormButton>
-                <EditFormButton text="Preview" clickHandler={showPreview}></EditFormButton>
+            <SwitchSection
+                editHandler={setFromEditable}
+                previewHandler={showPreview}>
             </SwitchSection>
             <section className="template">
                 <div className="container">
@@ -222,7 +205,7 @@ function App() {
                         nameInputHandler={nameInputHandler}
                         addressInputHandler={addressInputHandler}
                         emailInputHandler={emailInputHandler}
-                        phon eInputHandler={phoneInputHandler}
+                        phoneInputHandler={phoneInputHandler}
                         nameInput={nameInput}
                         addressInput={addressInput}
                         emailInput={emailInput}
