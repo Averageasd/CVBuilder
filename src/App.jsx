@@ -13,6 +13,8 @@ import {SwitchSection} from "./components/SwitchSection.jsx";
 import {ExperienceSection} from "./components/ExperienceSection.jsx";
 import {PreviewHeader} from "./components/PreviewHeader.jsx";
 import {PreviewBody} from "./components/PreviewBody.jsx";
+import {EducationSection} from "./components/EducationSection.jsx";
+import {Preview} from "./components/Preview.jsx";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -165,14 +167,14 @@ function App() {
         const emailDisplay = emailInput === '' ? 'abc@gmail.com' : emailInput;
         const addressDisplay = addressInput === '' ? '123 street, my state, 12345' : addressInput;
         const personalInfo = {
-            phoneNumDisplay : phoneNumDisplay,
-            emailDisplay : emailDisplay,
-            addressDisplay : addressDisplay
+            phoneNumDisplay: phoneNumDisplay,
+            emailDisplay: emailDisplay,
+            addressDisplay: addressDisplay
         }
 
         const headerInfo = {
-            name : nameDisplay,
-            personalInfo : personalInfo
+            name: nameDisplay,
+            personalInfo: personalInfo
         }
         return (
             <>
@@ -180,18 +182,14 @@ function App() {
                     editHandler={setFromEditable}
                     previewHandler={showPreview}>
                 </SwitchSection>
-                <section className="preview">
-                    <PreviewHeader headerInfo={headerInfo}>
-                    </PreviewHeader>
-                    <PreviewBody
-                        experienceList={experienceList}
-                        educationList={experienceList}>
-                    </PreviewBody>
-                </section>
+                <Preview
+                    headerInfo={headerInfo}
+                    educationList={educationList}
+                    experienceList={experienceList}>
+                </Preview>
             </>
         )
     }
-
 
     return (
         <>
@@ -221,72 +219,16 @@ function App() {
                         deleteExperience={deleteExperience}
                         addExperience={addExperience}>
                     </ExperienceSection>
-                    <InfoSection infoTitle="Education">
-                        <ul>
-                            {educationList.map(education => {
-                                return (
-                                    <li key={education._id}>
-                                        <InputContainer inputExample="e.g: ABC High school">
-                                            <input
-                                                type="text"
-                                                placeholder="school"
-                                                onChange={(e) => {
-                                                    updateEducationSchool(education._id, e.target.value)
-                                                }}
-                                                value={education._school}
-                                            >
-                                            </input>
-                                        </InputContainer>
-                                        <InputContainer inputExample="e.g: 3.0">
-                                            <input
-                                                type="number"
-                                                placeholder="gpa"
-                                                min="0"
-                                                step="any"
-                                                max="4"
-                                                value={education._gpa}
-                                                onChange={(e) => {
-                                                    updateEducationGpa(education._id, e.target.value)
-                                                }}
-                                            >
-                                            </input>
-                                        </InputContainer>
-                                        <InputContainer inputExample="e.g: 01/01/2023">
-                                            <label>
-                                                From Date:
-                                                <input
-                                                    type="date"
-                                                    placeholder="date from"
-                                                    onChange={(e) =>
-                                                        updateEducationDateFrom(education._id, new Date(`${e.target.value} EDT`))}
-                                                    value={dateFormat(education._dateFrom, 'yyyy-mm-dd')}
-                                                >
-                                                </input>
-                                            </label>
-                                        </InputContainer>
-                                        <InputContainer inputExample="e.g: 02/01/2023">
-                                            <label>
-                                                To Date:
-                                                <input
-                                                    type="date"
-                                                    placeholder="date to"
-                                                    onChange={(e) =>
-                                                        updateEducationDateTo(education._id, new Date(`${e.target.value} EDT`))}
-                                                    value={dateFormat(education._dateTo, 'yyyy-mm-dd')}
-                                                >
-                                                </input>
-                                            </label>
-                                        </InputContainer>
-                                        <DeleteButton clickHandler={() => {
-                                            deleteEducation(education._id)
-                                        }}></DeleteButton>
-                                        <hr></hr>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                        <AddButton clickHandler={addEducation}></AddButton>
-                    </InfoSection>
+
+                    <EducationSection
+                        educationList={educationList}
+                        updateEducationSchool={updateEducationSchool}
+                        updateEducationGpa={updateEducationGpa}
+                        updateEducationDateFrom={updateEducationDateFrom}
+                        updateEducationDateTo={updateEducationDateTo}
+                        deleteEducation={deleteEducation}
+                        addEducation={addEducation}>
+                    </EducationSection>
                 </div>
             </section>
         </>
