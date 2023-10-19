@@ -9,6 +9,7 @@ import {v4 as uuidv4} from 'uuid';
 import dateFormat from "dateformat";
 import {DeleteButton} from "./components/DeleteButton.jsx";
 import {SetEditableSection} from "./components/SetEditableSection.jsx";
+import {GeneralInfo} from "./components/GeneralInfo.jsx";
 
 function App() {
     const [nameInput, setNameInput] = useState("");
@@ -20,6 +21,22 @@ function App() {
 
     const [experienceList, setExperienceList] = useState([]);
     const [educationList, setEducationList] = useState([]);
+
+    function nameInputHandler(e) {
+        setNameInput(e.target.value);
+    }
+
+    function addressInputHandler(e) {
+        setAddressInput(e.target.value);
+    }
+
+    function emailInputHandler(e) {
+        setEmailInput(e.target.value);
+    }
+
+    function phoneInputHandler(e) {
+        setPhoneNumInput(e.target.value);
+    }
 
     function addExperience() {
         const experience = Experience(uuidv4(), '', '', new Date(), new Date());
@@ -134,39 +151,49 @@ function App() {
     return (
         <section className="template">
             <div className="container">
-                <InfoSection infoTitle="General Info">
-                    <InputContainer inputExample="e.g: John Joe">
-                        <input
-                            type="text"
-                            placeholder="name"
-                            onChange={(e) => setNameInput(e.target.value)}
-                            value={nameInput}>
-                        </input>
-                    </InputContainer>
-                    <InputContainer inputExample="e.g: 1234, Hero Street, My State.">
-                        <input type="text"
-                               placeholder="address"
-                               onChange={(e) => setAddressInput(e.target.value)}
-                               value={addressInput}>
-                        </input>
-                    </InputContainer>
-                    <InputContainer inputExample="e.g: joe151@email.com.">
-                        <input
-                            type="email"
-                            placeholder="email"
-                            onChange={(e) => setEmailInput(e.target.value)}
-                            value={emailInput}>
-                        </input>
-                    </InputContainer>
-                    <InputContainer lastInputInSection={true} inputExample="e.g: (123)-456-789">
-                        <input
-                            type="text"
-                            placeholder="phone number"
-                            onChange={(e) => setPhoneNumInput(e.target.value)}
-                            value={phoneNumInput}>
-                        </input>
-                    </InputContainer>
-                </InfoSection>
+                <GeneralInfo
+                    nameInputHandler={nameInputHandler}
+                    addressInputHandler={addressInputHandler}
+                    emailInputHandler={emailInputHandler}
+                    phoneInputHandler={phoneInputHandler}
+                    nameInput={nameInput}
+                    addressInput={addressInput}
+                    emailInput={emailInput}
+                    phoneNumInput={phoneNumInput}>
+                </GeneralInfo>
+                {/*<InfoSection infoTitle="General Info">*/}
+                {/*    <InputContainer inputExample="e.g: John Joe">*/}
+                {/*        <input*/}
+                {/*            type="text"*/}
+                {/*            placeholder="name"*/}
+                {/*            onChange={(e) => setNameInput(e.target.value)}*/}
+                {/*            value={nameInput}>*/}
+                {/*        </input>*/}
+                {/*    </InputContainer>*/}
+                {/*    <InputContainer inputExample="e.g: 1234, Hero Street, My State.">*/}
+                {/*        <input type="text"*/}
+                {/*               placeholder="address"*/}
+                {/*               onChange={(e) => setAddressInput(e.target.value)}*/}
+                {/*               value={addressInput}>*/}
+                {/*        </input>*/}
+                {/*    </InputContainer>*/}
+                {/*    <InputContainer inputExample="e.g: joe151@email.com.">*/}
+                {/*        <input*/}
+                {/*            type="email"*/}
+                {/*            placeholder="email"*/}
+                {/*            onChange={(e) => setEmailInput(e.target.value)}*/}
+                {/*            value={emailInput}>*/}
+                {/*        </input>*/}
+                {/*    </InputContainer>*/}
+                {/*    <InputContainer lastInputInSection={true} inputExample="e.g: (123)-456-789">*/}
+                {/*        <input*/}
+                {/*            type="text"*/}
+                {/*            placeholder="phone number"*/}
+                {/*            onChange={(e) => setPhoneNumInput(e.target.value)}*/}
+                {/*            value={phoneNumInput}>*/}
+                {/*        </input>*/}
+                {/*    </InputContainer>*/}
+                {/*</InfoSection>*/}
 
                 <InfoSection infoTitle="Experience">
                     <ul>
