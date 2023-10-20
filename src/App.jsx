@@ -1,18 +1,11 @@
 import './App.css'
-import {InfoSection} from "./components/InfoSection.jsx";
 import {useState} from "react";
-import {InputContainer} from "./components/InputContainer.jsx";
-import {AddButton} from "./components/AddButton.jsx";
 import Experience from "./data/Experience.js";
 import Education from "./data/Education.js";
 import {v4 as uuidv4} from 'uuid';
-import dateFormat from "dateformat";
-import {DeleteButton} from "./components/DeleteButton.jsx";
 import {GeneralInfo} from "./components/GeneralInfo.jsx";
 import {SwitchSection} from "./components/SwitchSection.jsx";
 import {ExperienceSection} from "./components/ExperienceSection.jsx";
-import {PreviewHeader} from "./components/PreviewHeader.jsx";
-import {PreviewBody} from "./components/PreviewBody.jsx";
 import {EducationSection} from "./components/EducationSection.jsx";
 import {Preview} from "./components/Preview.jsx";
 
